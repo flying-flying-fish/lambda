@@ -1,0 +1,24 @@
+service: test-lambda3
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+package:
+  patterns:
+    - '!./**'
+    - dist/main.js
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
